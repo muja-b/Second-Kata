@@ -52,7 +52,7 @@ public class UnitTest1
         //Assert
         Assert.Equal(6, actual);
     }
-[Fact]
+    [Fact]
     public void TestForThreePositiveNumbersWithDelimiterPercent()
     {
         //Arrange
@@ -84,9 +84,18 @@ public class UnitTest1
         }
         catch (Kata.calculator.NegitaveNotAllowedException ex)
         {
-            Assert.Equal(ex.Message,"negatives not allowed:-1,-3");
+            //Assert
+            Assert.Equal(ex.Message, "negatives not allowed:-1,-3");
         }
+    }
+    [Fact]
+    public void TestForbigNumbers()
+    {
+        //Arrange
+        var calculator = new Kata.calculator();
+        //Act
+        var actual = calculator.add("1,2000,3");
         //Assert
-        
+        Assert.Equal(4, actual);
     }
 }

@@ -21,14 +21,21 @@ namespace Kata
         }
         var numbersWithoutNewLine=removeNewLine(numbers,delimiter);
         var mynums=numbersWithoutNewLine.Split(delimiter);
-        var myint=Parse(mynums);
-        var negitaveObj=checkNegitaveNumbers(myint);
+        var myints=Parse(mynums);
+        var negitaveObj=checkNegitaveNumbers(myints);
         if(negitaveObj.negitaveExists){
             throw new NegitaveNotAllowedException(negitaveObj.negitaves);
         }
-        var mysum=myint.Aggregate((sum,x)=>sum+=x);
+        var filteredNumbers=bigNumberFilter(myints);
+        var mysum=filteredNumbers.Aggregate((sum,x)=>sum+=x);
         return mysum;
      }
+
+        private List<int> bigNumberFilter(List<int> myints)
+        {
+            var myFilteredInts=myints.Where(x=>x<1000).ToList();
+            return myFilteredInts;
+        }
 
         private negitaveList checkNegitaveNumbers(List<int> myint)
         {
