@@ -42,7 +42,34 @@ public class UnitTest1
         //Assert
         Assert.Equal(6, actual);
     }
-
-
-
+    [Fact]
+    public void TestForThreePositiveNumbersWithNewLine()
+    {
+        //Arrange
+        var calculator = new Kata.calculator();
+        //Act
+        var actual = calculator.add("1\n2,3");
+        //Assert
+        Assert.Equal(6, actual);
+    }
+[Fact]
+    public void TestForThreePositiveNumbersWithDelimiterPercent()
+    {
+        //Arrange
+        var calculator = new Kata.calculator();
+        //Act
+        var actual = calculator.add("\\%1%2%3");
+        //Assert
+        Assert.Equal(6, actual);
+    }
+    [Fact]
+    public void TestForThreePositiveNumbersWithDelimiterPercentAndNewLine()
+    {
+        //Arrange
+        var calculator = new Kata.calculator();
+        //Act
+        var actual = calculator.add("\\%1\n2%3");
+        //Assert
+        Assert.Equal(6, actual);
+    }
 }

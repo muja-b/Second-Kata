@@ -14,11 +14,28 @@ namespace Kata
     {
      public int add(string numbers){
         if(numbers.Equals(""))return 0;
-        var mynums=numbers.Split(',');
+        char delimiter=',';
+        if(numbers.StartsWith("\\")){
+            delimiter=GetDelimiter(numbers);
+            numbers=numbers.Remove(0,2);
+        }
+        var numbersWithoutNewLine=removeNewLine(numbers,delimiter);
+        var mynums=numbersWithoutNewLine.Split(delimiter);
         var myint=Parse(mynums);
         var mysum=myint.Aggregate((sum,x)=>sum+=x);
         return mysum;
      }
+
+        private string removeNewLine(string numbers,char delimiter)
+        {
+            var mynums=numbers.Replace("\n",delimiter.ToString());
+            return mynums;
+        }
+
+        private char GetDelimiter(string numbers)
+        {
+            return numbers[1];
+        }
 
         private List<int> Parse(string[] mynums)
         {
