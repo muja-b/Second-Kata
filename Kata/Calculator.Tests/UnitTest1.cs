@@ -72,4 +72,21 @@ public class UnitTest1
         //Assert
         Assert.Equal(6, actual);
     }
+    [Fact]
+    public void TestFornegativeNumbers()
+    {
+        //Arrange
+        var calculator = new Kata.calculator();
+        //Act
+        try
+        {
+            calculator.add("-1,2,-3");
+        }
+        catch (Kata.calculator.NegitaveNotAllowedException ex)
+        {
+            Assert.Equal(ex.Message,"negatives not allowed:-1,-3");
+        }
+        //Assert
+        
+    }
 }

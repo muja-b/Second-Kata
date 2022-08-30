@@ -22,9 +22,21 @@ namespace Kata
         var numbersWithoutNewLine=removeNewLine(numbers,delimiter);
         var mynums=numbersWithoutNewLine.Split(delimiter);
         var myint=Parse(mynums);
+        var negitaveObj=checkNegitaveNumbers(myint);
+        if(negitaveObj.negitaveExists){
+            throw new NegitaveNotAllowedException(negitaveObj.negitaves);
+        }
         var mysum=myint.Aggregate((sum,x)=>sum+=x);
         return mysum;
      }
+
+        private negitaveList checkNegitaveNumbers(List<int> myint)
+        {
+            negitaveList nList=new negitaveList();
+            nList.negitaveExists=myint.Exists(x=> x<0);
+            nList.negitaves=myint.Select(x=>x).Where(x=>x<0).ToList();
+            return nList;
+        }
 
         private string removeNewLine(string numbers,char delimiter)
         {
@@ -42,6 +54,19 @@ namespace Kata
             List<int> myints;
             myints=mynums.Select(x=>Int32.Parse(x)).ToList();
             return myints;
+        }
+        class negitaveList{
+            
+             public bool negitaveExists{get;set; }
+             public List<int> negitaves{get;set; }
+        }
+         public class NegitaveNotAllowedException : Exception
+        {
+            public NegitaveNotAllowedException(List<int> myints)
+
+                : base("negatives not allowed:" +string.Join<int>(',', myints))
+            {
+            }
         }
     }   
 }
