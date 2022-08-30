@@ -5,22 +5,44 @@ public class UnitTest1
     public void TestForEmptyString()
     {
         //Arrange
-        var calculator=new Kata.calculator();
+        var calculator = new Kata.calculator();
         //Act
-        var actual=calculator.add("");
+        var actual = calculator.add("");
         //Assert
-        Assert.Equal(0,actual);
+        Assert.Equal(0, actual);
 
     }
     [Fact]
     public void TestForOneNumber()
     {
         //Arrange
-        var calculator=new Kata.calculator();
+        var calculator = new Kata.calculator();
         //Act
-        var actual=calculator.add("1");
+        var actual = calculator.add("1");
         //Assert
-        Assert.Equal(1,actual);
+        Assert.Equal(1, actual);
     }
+    [Fact]
+    public void TestForTwoPositiveNumbers()
+    {
+        //Arrange
+        var calculator = new Kata.calculator();
+        //Act
+        var actual = calculator.add("1,2");
+        //Assert
+        Assert.Equal(3, actual);
+    }
+    [Fact]
+    public void TestForThreePositiveNumbers()
+    {
+        //Arrange
+        var calculator = new Kata.calculator();
+        //Act
+        var actual = calculator.add("1,2,3");
+        //Assert
+        Assert.Equal(6, actual);
+    }
+
+
 
 }
