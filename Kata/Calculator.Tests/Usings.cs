@@ -14,10 +14,11 @@ namespace Kata
     {
      public int add(string numbers){
         if(numbers.Equals(""))return 0;
-        char delimiter=',';
+        string delimiter=",";
         if(numbers.StartsWith("\\")){
             delimiter=GetDelimiter(numbers);
-            numbers=numbers.Remove(0,2);
+            numbers=numbers.Replace("\\","");
+            numbers=numbers.Substring(delimiter.Length+1);
         }
         var numbersWithoutNewLine=removeNewLine(numbers,delimiter);
         var mynums=numbersWithoutNewLine.Split(delimiter);
@@ -45,15 +46,16 @@ namespace Kata
             return nList;
         }
 
-        private string removeNewLine(string numbers,char delimiter)
+        private string removeNewLine(string numbers,string delimiter)
         {
-            var mynums=numbers.Replace("\n",delimiter.ToString());
+            var mynums=numbers.Replace("\n",delimiter);
             return mynums;
         }
 
-        private char GetDelimiter(string numbers)
+        private string GetDelimiter(string numbers)
         {
-            return numbers[1];
+            var mynumbers=numbers.Substring(1,numbers.IndexOf('\n')-1);
+            return mynumbers;
         }
 
         private List<int> Parse(string[] mynums)

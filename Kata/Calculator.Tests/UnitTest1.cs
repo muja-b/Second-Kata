@@ -58,7 +58,7 @@ public class UnitTest1
         //Arrange
         var calculator = new Kata.calculator();
         //Act
-        var actual = calculator.add("\\%1%2%3");
+        var actual = calculator.add("\\%\n1%2%3");
         //Assert
         Assert.Equal(6, actual);
     }
@@ -68,7 +68,7 @@ public class UnitTest1
         //Arrange
         var calculator = new Kata.calculator();
         //Act
-        var actual = calculator.add("\\%1\n2%3");
+        var actual = calculator.add("\\%\n1\n2%3");
         //Assert
         Assert.Equal(6, actual);
     }
@@ -97,5 +97,15 @@ public class UnitTest1
         var actual = calculator.add("1,2000,3");
         //Assert
         Assert.Equal(4, actual);
+    }
+[Fact]
+    public void TestForMultiDilemiters()
+    {
+        //Arrange
+        var calculator = new Kata.calculator();
+        //Act
+        var actual = calculator.add("\\%%\n1\n2%%3%%4");
+        //Assert
+        Assert.Equal(10, actual);
     }
 }
