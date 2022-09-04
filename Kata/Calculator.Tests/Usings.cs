@@ -64,8 +64,8 @@ namespace Kata
         private string GetDelimiter(string numbers)
         {
             var mynumbers=numbers.Substring(1,numbers.IndexOf('\n')-1);
-            if(numbers.StartsWith("//[")){
-                mynumbers=numbers.Substring(numbers.IndexOf('[')+1,numbers.IndexOf(']')-1);
+            if(numbers.StartsWith("\\[")){
+                mynumbers=numbers.Substring(numbers.IndexOf('[')+1,numbers.IndexOf(']')-2);
             }
             return mynumbers;
         }

@@ -99,13 +99,25 @@ public class UnitTest1
         Assert.Equal(4, actual);
     }
 [Fact]
+    public void TestForMultiLetterDilemiters()
+    {
+        //Arrange
+        var calculator = new Kata.calculator();
+        //Act
+        var actual = calculator.add("\\[%%]\n1\n2%%3%%4");
+        //Assert
+        Assert.Equal(10, actual);
+    }
+[Fact]
     public void TestForMultiDilemiters()
     {
         //Arrange
         var calculator = new Kata.calculator();
         //Act
-        var actual = calculator.add("\\%%\n1\n2%%3%%4");
+        var actual = calculator.add("\\[%%][^^]\n1\n2%%3%%4");
         //Assert
         Assert.Equal(10, actual);
     }
+
+
 }
