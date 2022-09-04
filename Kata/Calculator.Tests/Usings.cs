@@ -14,15 +14,17 @@ namespace Kata
     {
      public int add(string numbers){
         if(numbers.Equals(""))return 0;
-        string delimiter=",";
+        List <string> delimiters=new();
+        delimiters.Add(",");
         if(numbers.StartsWith("\\"))
             {
-                delimiter = GetDelimiter(numbers);
+                delimiters = GetDelimiter(numbers);
                 numbers = removePrefix(numbers);
-                numbers = numbers.Substring(delimiter.Length + 1);
+                
             }
-        var numbersWithoutNewLine=removeNewLine(numbers,delimiter);
-        var mynums=numbersWithoutNewLine.Split(delimiter);
+        var numbersWithoutNewLine=removeNewLine(numbers,delimiters[0]);
+        var arr=delimiters.ToArray();
+        var mynums=numbersWithoutNewLine.Split(arr,StringSplitOptions.RemoveEmptyEntries);
         var myints=Parse(mynums);
         var negitaveObj=checkNegitaveNumbers(myints);
         if(negitaveObj.negitaveExists){
@@ -34,10 +36,9 @@ namespace Kata
      }
 
         private string removePrefix(string numbers)
-        {
-            var mynumbers= numbers=numbers.Replace("\\","");
-            mynumbers = mynumbers.Replace("[", "");
-            mynumbers = mynumbers.Replace("]", "");
+        {       
+            var startingIndex=numbers.First(x=>Char.IsDigit(x));
+            var mynumbers = numbers.Substring(numbers.IndexOf(startingIndex));
             return mynumbers;
         }
 
@@ -61,13 +62,20 @@ namespace Kata
             return mynums;
         }
 
-        private string GetDelimiter(string numbers)
-        {
-            var mynumbers=numbers.Substring(1,numbers.IndexOf('\n')-1);
+        private List <string> GetDelimiter(string numbers)
+        {   
+            List<string> myList=new();
+            
             if(numbers.StartsWith("\\[")){
-                mynumbers=numbers.Substring(numbers.IndexOf('[')+1,numbers.IndexOf(']')-2);
+                for (int i = 0; i < numbers.Length; i++)
+                {
+                 if(numbers[i]=='[')myList.Add(numbers.Substring(i+1,numbers.Substring(i).IndexOf(']')-1));   
+                }
+                
+            }else{
+              myList.Add(numbers.Substring(1,numbers.IndexOf('\n')-1));
             }
-            return mynumbers;
+            return myList;
         }
 
         private List<int> Parse(string[] mynums)

@@ -114,9 +114,9 @@ public class UnitTest1
         //Arrange
         var calculator = new Kata.calculator();
         //Act
-        var actual = calculator.add("\\[%%][^^]\n1\n2%%3%%4");
+        var actual = calculator.add("\\[%%][^^]\n1\n2%%3%%4^^1");
         //Assert
-        Assert.Equal(10, actual);
+        Assert.Equal(11, actual);
     }
 
 
