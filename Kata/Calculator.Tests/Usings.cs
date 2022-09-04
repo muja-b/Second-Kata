@@ -15,11 +15,12 @@ namespace Kata
      public int add(string numbers){
         if(numbers.Equals(""))return 0;
         string delimiter=",";
-        if(numbers.StartsWith("\\")){
-            delimiter=GetDelimiter(numbers);
-            numbers=numbers.Replace("\\","");
-            numbers=numbers.Substring(delimiter.Length+1);
-        }
+        if(numbers.StartsWith("\\"))
+            {
+                delimiter = GetDelimiter(numbers);
+                numbers = removePrefix(numbers);
+                numbers = numbers.Substring(delimiter.Length + 1);
+            }
         var numbersWithoutNewLine=removeNewLine(numbers,delimiter);
         var mynums=numbersWithoutNewLine.Split(delimiter);
         var myints=Parse(mynums);
@@ -28,9 +29,17 @@ namespace Kata
             throw new NegitaveNotAllowedException(negitaveObj.negitaves);
         }
         var filteredNumbers=bigNumberFilter(myints);
-        var mysum=filteredNumbers.Aggregate((sum,x)=>sum+=x);
+        var mysum=filteredNumbers.Sum();
         return mysum;
      }
+
+        private string removePrefix(string numbers)
+        {
+            var mynumbers= numbers=numbers.Replace("\\","");
+            mynumbers = mynumbers.Replace("[", "");
+            mynumbers = mynumbers.Replace("]", "");
+            return mynumbers;
+        }
 
         private List<int> bigNumberFilter(List<int> myints)
         {
@@ -55,6 +64,9 @@ namespace Kata
         private string GetDelimiter(string numbers)
         {
             var mynumbers=numbers.Substring(1,numbers.IndexOf('\n')-1);
+            if(numbers.StartsWith("//[")){
+                mynumbers=numbers.Substring(numbers.IndexOf('[')+1,numbers.IndexOf(']')-1);
+            }
             return mynumbers;
         }
 
